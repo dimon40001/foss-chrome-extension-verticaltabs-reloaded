@@ -19,9 +19,7 @@ function init() {
     var value = counterSelect.children[counterSelect.selectedIndex].value;
     setOption({ counter: value });
     save(counterSelect);
-    chrome.runtime.getBackgroundPage(function(bg) {
-      bg.initCounter();
-    });
+    chrome.runtime.sendMessage({ type: 'initCounter' });
   }, false);
 
   var width = document.getElementById('width');

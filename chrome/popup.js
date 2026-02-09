@@ -26,10 +26,10 @@ window.addEventListener("load", function() {
   createPopup();
   createSearchBox();
 
-  chrome.tabs.getAllInWindow(null, function(tabs) {
+  chrome.tabs.query({ currentWindow: true }, function(tabs) {
     initTabs(tabs);
-    setTimeout(function() { vt.search.focus();}, 300);
-  });
+    setTimeout(() => vt.search.focus(), 300);
+});
 }, false);
 
 function createPopup() {
@@ -198,8 +198,14 @@ function move(id, items) {
   chrome.tabs.move(tabId, {index: n});
 }
 
-chrome.tabs.onSelectionChanged.addListener(function(tabId, selectInfo) {
-  if (vt.selectedId != tabId) try {selectItem(tabId);} catch(e) {};
+chrome.tabs.onActivated.addListener(function(activeInfo) {
+  const tabId = activeInfo.tabId;
+
+  if (vt.selectedId !== tabId) {
+    try {
+      selectItem(tabId);
+    } catch (e) {}
+  }
 });
 
 
@@ -218,9 +224,9 @@ function createSearchBox() {
 
 function initTabsAndSearch() {
   vt.search.value = '';
-  chrome.tabs.getAllInWindow(null, function(tabs) {
-    initTabs(tabs);
-  });
+chrome.tabs.query({ currentWindow: true }, function(tabs) {
+  initTabs(tabs);
+});
 }
 
 function changeTargetPosition(node, position) {

@@ -17,5 +17,7 @@ Keyboard Control, Vertical View
 Simple Vertical Tabs for power user.
 
 Version 2026.02
-- support Chrome version > 67
 - based on original version 2.0.2 by Norio Shimizu
+- support Chrome version > 67
+- badge color represents badge count level (normal, warning (>20 tabs), critical (>50 tabs))
+- updated Manifest version to 3.0
