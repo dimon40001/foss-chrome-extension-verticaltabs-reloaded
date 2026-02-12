@@ -4,7 +4,7 @@ function init() {
   var counter;
   var counterSelect = document.getElementById('counter');
 
-  chrome.storage.sync.get({ counter: 'off' }, function (result) {
+  browser.storage.sync.get({ counter: 'off' }, function (result) {
     counter = result['counter'];
     for (var i = 0; i < counterSelect.children.length; i++) {
       var child = counterSelect.children[i];
@@ -19,12 +19,12 @@ function init() {
     var value = counterSelect.children[counterSelect.selectedIndex].value;
     setOption({ counter: value });
     save(counterSelect);
-    chrome.runtime.sendMessage({ type: 'initCounter' });
+    browser.runtime.sendMessage({ type: 'initCounter' });
   }, false);
 
   var width = document.getElementById('width');
   var widthValue = document.getElementById('width-value');
-  chrome.storage.sync.get({ width: 360 }, function (result) {
+  browser.storage.sync.get({ width: 360 }, function (result) {
     width.value = widthValue.textContent = result['width'];
   });
 
@@ -38,7 +38,7 @@ function init() {
 
   var lines = document.getElementById('lines');
   var linesValue = document.getElementById('lines-value');
-  chrome.storage.sync.get({ lines: 3 }, function (result) {
+  browser.storage.sync.get({ lines: 3 }, function (result) {
     lines.value = linesValue.textContent = result['lines'];
   });
 
@@ -53,7 +53,7 @@ function init() {
 
 function option(key) {
   var value;
-  chrome.storage.sync.get(key, function (result) {
+  browser.storage.sync.get(key, function (result) {
     console.log('Value currently is ' + result[key]);
     value = result[key];
   });
@@ -61,7 +61,7 @@ function option(key) {
 }
 
 function setOption(value) {
-  chrome.storage.sync.set(value, function () {
+  browser.storage.sync.set(value, function () {
     console.dir(value);
   });
 }
@@ -74,7 +74,7 @@ function save() {
   }, 750);
 }
 
-chrome.storage.onChanged.addListener(function (changes, namespace) {
+browser.storage.onChanged.addListener(function (changes, namespace) {
   for (key in changes) {
     var storageChange = changes[key];
     console.log('Storage key "%s" in namespace "%s" changed. ' +

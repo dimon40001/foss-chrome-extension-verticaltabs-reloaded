@@ -10,23 +10,23 @@ var vt = {
 };
 
 function log(value) {
-  chrome.self.getBackgroundPage().console.log(value);
+  browser.self.getBackgroundPage().console.log(value);
 }
 
 function option(key) {
-  chrome.storage.sync.get([key], function(result) {
+  browser.storage.sync.get([key], function(result) {
     return result.key;
   });
 }
 
 window.addEventListener("load", function() {
-  chrome.storage.sync.get({ width: 360 }, function(result) {
+  browser.storage.sync.get({ width: 360 }, function(result) {
     document.body.style.cssText = "width: " + result['width'] + "px;";
   });
   createPopup();
   createSearchBox();
 
-  chrome.tabs.query({ currentWindow: true }, function(tabs) {
+  browser.tabs.query({ currentWindow: true }, function(tabs) {
     initTabs(tabs);
     setTimeout(() => vt.search.focus(), 300);
 });
@@ -82,7 +82,7 @@ function showTabs(tabs, tabScores) {
       title.textContent = titleText;
     }
 
-    chrome.storage.sync.get({ lines: 3 }, function (result) {
+    browser.storage.sync.get({ lines: 3 }, function (result) {
       title.style.cssText = "max-height: "+ (18 * result['lines']) +"px";
     });
 
@@ -167,7 +167,7 @@ function sortByScore(tabScores) {
 
 function focus(id) {
   try {selectItem(id);} catch(e) {};
-  chrome.tabs.update(Number(id), {selected: true});
+  browser.tabs.update(Number(id), {selected: true});
 }
 
 function selectItem(id) {
@@ -181,7 +181,7 @@ function selectItem(id) {
 }
 
 function remove(id) {
-  chrome.tabs.remove(Number(id), function() {
+  browser.tabs.remove(Number(id), function() {
     var items = document.getElementById("items");
     var target = document.getElementById(id);
     items.removeChild(target);
@@ -195,10 +195,10 @@ function move(id, items) {
   while (tabs[n].id != tabId) {
     n++;
   }
-  chrome.tabs.move(tabId, {index: n});
+  browser.tabs.move(tabId, {index: n});
 }
 
-chrome.tabs.onActivated.addListener(function(activeInfo) {
+browser.tabs.onActivated.addListener(function(activeInfo) {
   const tabId = activeInfo.tabId;
 
   if (vt.selectedId !== tabId) {
@@ -224,7 +224,7 @@ function createSearchBox() {
 
 function initTabsAndSearch() {
   vt.search.value = '';
-chrome.tabs.query({ currentWindow: true }, function(tabs) {
+browser.tabs.query({ currentWindow: true }, function(tabs) {
   initTabs(tabs);
 });
 }

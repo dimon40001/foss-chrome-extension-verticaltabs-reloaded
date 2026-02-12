@@ -6,8 +6,9 @@
    "version": "2026.2.0",
 
    "background": {
-    "service_worker": "background.js",
-    "type": "module"
+      "scripts": [
+         "background.js"
+      ]
    },
    "action": {
       "default_icon": "icon19.png",
