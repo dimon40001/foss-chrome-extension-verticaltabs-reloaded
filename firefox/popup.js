@@ -14,13 +14,17 @@ function log(value) {
 }
 
 function option(key) {
-  browser.storage.sync.get([key], function(result) {
-    return result.key;
-  });
+  browser.storage.sync.get(
+      [key]
+  ).then(result => {
+      return result.key;
+    });
 }
 
 window.addEventListener("load", function() {
-  browser.storage.sync.get({ width: 360 }, function(result) {
+  browser.storage.sync.get({
+    width: 360
+  }).then(result => {
     document.body.style.cssText = "width: " + result['width'] + "px;";
   });
   createPopup();
@@ -82,7 +86,9 @@ function showTabs(tabs, tabScores) {
       title.textContent = titleText;
     }
 
-    browser.storage.sync.get({ lines: 3 }, function (result) {
+    browser.storage.sync.get({
+      lines: 3
+    }).then(result => {
       title.style.cssText = "max-height: "+ (18 * result['lines']) +"px";
     });
 

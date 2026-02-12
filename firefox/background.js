@@ -10,12 +10,14 @@ function init() {
 }
 
 function initCounter() {
-  browser.storage.sync.get({ counter: 'off' }, function (result) {
+  browser.storage.sync.get({
+    counter: 'on'
+  }).then(result => {
     var counter = result['counter'];
-    if (counter == 'on') {
+    if (counter === 'on') {
       setTabsCounter();
       updateCounter();
-    } else if (counter = 'off') {
+    } else if (counter === 'off') {
       removeTabsCounter();
     }
   });
@@ -37,8 +39,10 @@ function removeTabsCounter() {
   browser.windows.onFocusChanged.removeListener(updateCounter);
 }
 function updateCounter() {
-  chrome.storage.sync.get({ counter: 'off' }, function (result) {
-    if (result['counter'] != 'on')
+  browser.storage.sync.get({
+    counter: 'on'
+  }).then(result => {
+    if (result['counter'] !== 'on') {
       return;
     }
     browser.tabs.query( {currentWindow: true}, function (tabs) {
@@ -49,12 +53,8 @@ function updateCounter() {
         badgeColor = { color: [255, 255, 103, 255] };
       }
       browser.action.setBadgeBackgroundColor(badgeColor);
-      setBadgeText(String(tabs.length));
+      browser.action.setBadgeText({ text: String(tabs.length) });
     }
     );
   });
-}
-
-function setBadgeText(text) {
-  browser.action.setBadgeText({ text: text });
 }

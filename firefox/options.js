@@ -4,7 +4,9 @@ function init() {
   var counter;
   var counterSelect = document.getElementById('counter');
 
-  browser.storage.sync.get({ counter: 'off' }, function (result) {
+  browser.storage.sync.get({
+    counter: 'on'
+  }).then(result => {
     counter = result['counter'];
     for (var i = 0; i < counterSelect.children.length; i++) {
       var child = counterSelect.children[i];
@@ -24,7 +26,9 @@ function init() {
 
   var width = document.getElementById('width');
   var widthValue = document.getElementById('width-value');
-  browser.storage.sync.get({ width: 360 }, function (result) {
+  browser.storage.sync.get({
+    width: 360
+  }).then(result => {
     width.value = widthValue.textContent = result['width'];
   });
 
