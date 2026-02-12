@@ -35,14 +35,14 @@ Chrome uses `.crx`, Firefox uses `.xpi` extension for their AddOns.
 
 Clone the repository locally then proceed with installation.
 
-1. Chrome
+### Chrome
 
 - open `chrome://extensions/`
 - use `Load unpacked` and point to the `chrome` extension directory.
 
 Once installed the extension is there until deleted manually.
 
-1. Firefox
+### Firefox
 
 3 options available:
 
