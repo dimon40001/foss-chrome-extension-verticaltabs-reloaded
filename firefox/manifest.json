@@ -1,14 +1,15 @@
 {
-   "manifest_version": 3,
+   "manifest_version": 2,
    "name": "VerticalTabs",
    "options_page": "options.html",
    "permissions": [ "tabs", "storage" ],
    "version": "2026.2.0",
 
    "background": {
-      "scripts": ["background.js"]
+      "scripts": ["background.js"],
+      "persistent": true
    },
-   "action": {
+   "browser_action": {
       "default_icon": "icon19.png",
       "default_popup": "popup.html",
       "default_title": "VerticalTabs"

@@ -52,8 +52,8 @@ function updateCounter() {
       } else if (tabs.length > 20) {
         badgeColor = { color: [255, 255, 103, 255] };
       }
-      browser.action.setBadgeBackgroundColor(badgeColor);
-      browser.action.setBadgeText({ text: String(tabs.length) });
+      browser.browserAction.setBadgeBackgroundColor(badgeColor);
+      browser.browserAction.setBadgeText({ text: String(tabs.length) });
     }
     );
   });
