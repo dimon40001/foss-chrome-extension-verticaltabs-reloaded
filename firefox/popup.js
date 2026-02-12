@@ -172,8 +172,12 @@ function sortByScore(tabScores) {
 }
 
 function focus(id) {
-  try {selectItem(id);} catch(e) {};
-  browser.tabs.update(Number(id), {selected: true});
+  try {
+    selectItem(id);
+  } catch(e) {
+    console.error("selectItem failed:", e);
+  }
+  browser.tabs.update(Number(id), {active: true});
 }
 
 function selectItem(id) {
